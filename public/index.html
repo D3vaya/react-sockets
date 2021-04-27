@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <title>Socket</title>
+  </head>
+  <body class="container">
+    <h1 class="mt-5">MiniChat</h1>
+    <hr />
+
+    <form id="myForm" action="">
+      <div class="row">
+        <div class="col-8">
+          <input
+            type="text"
+            id="txtMensaje"
+            placeholder="Mensaje"
+            class="form-control"
+          />
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn-primary btn btn-block">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <ul class="mt-2" id="misMensajes"></ul>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const socket = io("http://localhost:8080");
+
+      // referencias del DOM
+      const form = document.getElementById("myForm");
+      const messages = document.getElementById("misMensajes");
+      const txt = document.getElementById("txtMensaje");
+
+      form.addEventListener("submit", function (evt) {
+        evt.preventDefault();
+        const newMsg = txt.value;
+        socket.emit("msg-to-server", { text: newMsg });
+      });
+
+      socket.on("msg-from-server", (data) => {
+        console.log(data);
+        messages.innerHTML += `<li>${data.text}</li>`;
+      });
+    </script>
+  </body>
+</html>
