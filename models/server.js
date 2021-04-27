@@ -24,6 +24,7 @@ class Server {
 
   execute() {
     // NOTE inicializar todos los middlewares, sockets, server
+    // CHECK inicializar todos los middlewares, sockets, server
     this.middlewares();
     this.configurationSockets();
 
