@@ -16,52 +16,17 @@
     <h1 class="mt-5">MiniChat</h1>
     <hr />
 
-    <form id="myForm" action="">
-      <div class="row">
-        <div class="col-8">
-          <input
-            type="text"
-            id="txtMensaje"
-            placeholder="Mensaje"
-            class="form-control"
-          />
-        </div>
-        <div class="col-4">
-          <button type="submit" class="btn-primary btn btn-block">
-            Enviar
-          </button>
-        </div>
-      </div>
-    </form>
-
-    <div class="row">
-      <div class="col">
-        <ul class="mt-2" id="misMensajes"></ul>
-      </div>
-    </div>
-
+    <h1>Acceso denegado</h1>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
       integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
       crossorigin="anonymous"
     ></script>
     <script>
-      const socket = io("https://react-sockets-server-d3vaya.herokuapp.com/");
-
-      // referencias del DOM
-      const form = document.getElementById("myForm");
-      const messages = document.getElementById("misMensajes");
-      const txt = document.getElementById("txtMensaje");
-
-      form.addEventListener("submit", function (evt) {
-        evt.preventDefault();
-        const newMsg = txt.value;
-        socket.emit("msg-to-server", { text: newMsg });
-      });
-
-      socket.on("msg-from-server", (data) => {
+      // const socket = io("https://react-sockets-server-d3vaya.herokuapp.com/");
+      const socket = io("http://localhost:8080");
+      socket.on("current-bands", (data) => {
         console.log(data);
-        messages.innerHTML += `<li>${data.text}</li>`;
       });
     </script>
   </body>

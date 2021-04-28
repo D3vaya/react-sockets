@@ -11,7 +11,7 @@ class Server {
     this.app = express();
 
     this.server = http.createServer(this.app);
-    // TODO falta las configuraciones
+    // PENDING faltan las configuraciones
     this.io = socketIO(this.server);
   }
 
